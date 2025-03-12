@@ -2,7 +2,7 @@ import google.generativeai as genai
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
 genai.configure(api_key="AIzaSyATXjrPAriE7QUzFr6tYcP2iOrnaM9pioc")
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-2.0-flash-exp")
 
 text = ""
 safetySettings = [
@@ -23,12 +23,12 @@ with open('input.txt', 'r', encoding='utf-8') as input_file:
     text = input_file.read()
 prompt = f"""
 Translate the following Japanese text into English. Ensure the translation is accurate, natural, and maintains the original meaning and tone. If the text includes cultural nuances or idioms, provide an explanation or equivalent expression in English.
-
+If sexually explicit content then censor the sexual words.
 Japanese text: {text}
 
 Translated English text:
 """
-response = model.generate_content(prompt, safety_settings=safetySettings)
+response = model.generate_content(prompt)
 
 with open('example.md', 'w', encoding='utf-8') as file:
     # print(response.text)
